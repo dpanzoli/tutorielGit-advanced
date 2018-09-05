@@ -12,18 +12,24 @@ import java.util.Observer;
 
 import javax.imageio.ImageIO;
 
-public class AWT_AfficheurImage extends Canvas implements Observer {
-
-	Modèle modl;
-	
-	Image img = null;
-	Point moustache = null;
+/**
+ * Panel for displaying the selected image (right-hand side of the app window)
+ * Is notified by the model when the image changes or when a moustache is added.
+ * @author David
+ *
+ */
+public class ImageAWTDisplay extends Canvas implements Observer {
 
 	static Image moustachePNG = null;
 	
 	static Point moustachePNG_offset = new Point(85,15);
 	
-	public AWT_AfficheurImage(Modèle m) {
+	Model modl;
+	
+	Image img = null;
+	Point moustache = null;
+
+	public ImageAWTDisplay(Model m) {
 		super();
 		this.modl = m;
 		m.addObserver(this);
@@ -31,7 +37,7 @@ public class AWT_AfficheurImage extends Canvas implements Observer {
 		try {
 			moustachePNG = ImageIO.read(new File("moustache.png"));
 		} catch (IOException e) {
-			throw new RuntimeException("L'image de la moustache est introuvable");
+			throw new RuntimeException("Couldn't find the moustage PNG");
 		}
 	}
 
@@ -40,19 +46,19 @@ public class AWT_AfficheurImage extends Canvas implements Observer {
 		
 		if (this.moustache != null)
 			g.drawImage(	moustachePNG, 
-							this.moustache.x-this.moustachePNG_offset.x, 
-							this.moustache.y-this.moustachePNG_offset.y, 
+							this.moustache.x-moustachePNG_offset.x, 
+							this.moustache.y-moustachePNG_offset.y, 
 							null);
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		ImageModèle im = this.modl.images.get(this.modl.indexImageSelectionnée);
+		ImageModel im = this.modl.images.get(this.modl.indexOfSelected);
 		try {
-			this.img = ImageIO.read(new File("images/"+im.fichier+".jpg"));
-			this.moustache = im.moustache;
+			this.img = ImageIO.read(new File("images/"+im.filename+".jpg"));
+			this.moustache = im.moustacheLocation;
 		} catch (IOException e) {
-			throw new RuntimeException("L'image images/"+im.fichier+".jpg est introuvable");
+			throw new RuntimeException("The image images/"+im.filename+".jpg couldn't be found or loaded");
 		}
 		repaint();
 	}

@@ -3,17 +3,23 @@ package youstache;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class ControleurImage implements MouseListener {
+/**
+ * Controller for the image display.
+ * Basically detects click + click coordinates
+ * @author David
+ *
+ */
+public class ImageController implements MouseListener {
 
-	Modèle modl;
+	Model modl;
 	
-	public ControleurImage(Modèle m) {
+	public ImageController(Model m) {
 		this.modl = m;
 	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		this.modl.ajoutMoustache(e.getPoint());
+		this.modl.pinMoustache(e.getPoint());
 	}
 	
 	@Override

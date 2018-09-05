@@ -5,37 +5,46 @@ import java.awt.Frame;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-public class GestionImages extends Frame implements WindowListener {
+/**
+ * Youstache lets you add moustaches to celebrities.
+ * Listed as top grossing apps on Wire, issue Sep. 2018 
+ * @author David
+ *
+ */
+public class Youstache extends Frame implements WindowListener {
 
 	public static void main(String[] args) {
-		new GestionImages("images/");
+		new Youstache("images/");
 	}
 
-	Modèle modl;
+	/**
+	 * The app is MVC architectured.  
+	 */
+	Model modl;
 
-	public GestionImages(String dir) {
+	public Youstache(String dir) {
 
-		this.modl = new Modèle();
-		this.modl.chargerDonnées(dir);
+		this.modl = new Model();
+		this.modl.loadImages(dir);
 
-		ControleurListe ctrlL = new ControleurListe(modl); 
-		ControleurImage ctrlI = new ControleurImage(modl);
+		ListController listCtrl = new ListController(modl); 
+		ImageController imageCtrl= new ImageController(modl);
 		
 		this.setLayout(new BorderLayout());
 
-		AWT_ListeImages panneauGauche = new AWT_ListeImages(modl, ctrlL);
-		this.add(panneauGauche, BorderLayout.WEST);
+		ListAWTDisplay leftPanel = new ListAWTDisplay(modl, listCtrl);
+		this.add(leftPanel, BorderLayout.WEST);
 
-		AWT_AfficheurImage panneauDroite = new AWT_AfficheurImage(modl);
-		this.add(panneauDroite, BorderLayout.EAST);
-		panneauDroite.addMouseListener(ctrlI);
+		ImageAWTDisplay rightPanel = new ImageAWTDisplay(modl);
+		this.add(rightPanel, BorderLayout.EAST);
+		rightPanel.addMouseListener(imageCtrl);
 
 		this.addWindowListener(this);
 		this.setTitle("Youstache! You put the moustache!");
 		this.pack();
 		this.setVisible(true);
 		
-		this.modl.sélection(0);
+		this.modl.selectImage(0);
 	}
 
 	@Override
