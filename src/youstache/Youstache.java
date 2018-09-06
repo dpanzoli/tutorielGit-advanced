@@ -38,6 +38,7 @@ public class Youstache extends Frame implements WindowListener {
 		ImageAWTDisplay rightPanel = new ImageAWTDisplay(modl);
 		this.add(rightPanel, BorderLayout.EAST);
 		rightPanel.addMouseListener(imageCtrl);
+		rightPanel.addKeyListener(imageCtrl);
 
 		this.addWindowListener(this);
 		this.setTitle("Youstache! You put the moustache!");

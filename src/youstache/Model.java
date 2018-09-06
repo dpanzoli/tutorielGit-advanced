@@ -15,7 +15,7 @@ import java.util.Observable;
  * The model is a list of images
  * @see ImageModel
  * @author David
-  */
+ */
 public class Model extends Observable { 
 
 	/**
@@ -35,7 +35,7 @@ public class Model extends Observable {
 	 * @param dir
 	 */
 	public void loadImages(String dir) {
-		
+
 		File imagesDir = new File(dir);
 		File[] imagesList = imagesDir.listFiles();
 		this.images = new ArrayList<>();
@@ -55,7 +55,7 @@ public class Model extends Observable {
 		this.setChanged();
 		this.notifyObservers();
 	}
-	
+
 	/**
 	 * When an image is clicked from the panel, the model acknowledges 
 	 * the coordinates of the requested moustache, and notifies 
@@ -63,9 +63,16 @@ public class Model extends Observable {
 	 * @param coords
 	 */
 	public void pinMoustache(Point coords) {
-		this.images.get(this.indexOfSelected).moustacheLocation = coords;
-		this.setChanged();
-		this.notifyObservers();
+		Point coordm = this.images.get(this.indexOfSelected).moustacheLocation;
+		if (coordm==null || coordm.distance(coords) < 20) {
+			this.images.get(this.indexOfSelected).moustacheLocation = coords;
+			this.setChanged();
+			this.notifyObservers();
+		}
+	}
+
+	public void removeMoustache() {
+		this.images.get(this.indexOfSelected).moustacheLocation = null;
 	}
 
 }
