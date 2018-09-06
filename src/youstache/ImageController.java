@@ -21,8 +21,7 @@ public class ImageController implements MouseListener, KeyListener {
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if (!this.modl.isMoustachePinned())
-			this.modl.pinMoustache(e.getPoint());
+		this.modl.pinMoustache(e.getPoint());
 	}
 	
 	@Override
