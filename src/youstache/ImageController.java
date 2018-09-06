@@ -1,5 +1,7 @@
 package youstache;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -9,7 +11,7 @@ import java.awt.event.MouseListener;
  * @author David
  *
  */
-public class ImageController implements MouseListener {
+public class ImageController implements MouseListener, KeyListener {
 
 	Model modl;
 	
@@ -34,5 +36,16 @@ public class ImageController implements MouseListener {
 
 	@Override
 	public void mouseExited(MouseEvent e) {}
+
+	@Override
+	public void keyTyped(KeyEvent e) {}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		this.modl.removeMoustache();
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {}
 
 }
