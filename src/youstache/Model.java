@@ -56,6 +56,10 @@ public class Model extends Observable {
 		this.notifyObservers();
 	}
 	
+	public boolean isMoustachePinned() {
+		return this.images.get(this.indexOfSelected).moustacheLocation != null;
+	}
+	
 	/**
 	 * When an image is clicked from the panel, the model acknowledges 
 	 * the coordinates of the requested moustache, and notifies 
