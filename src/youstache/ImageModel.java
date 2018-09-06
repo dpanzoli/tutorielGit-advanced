@@ -1,13 +1,12 @@
 package youstache;
 
 import java.awt.Point;
-import java.io.Serializable;
 
 /**
  * An image model : a file and the location of moustache
  * @author David
  */
-public class ImageModel implements Serializable {
+public class ImageModel {
 
 	/**
 	 * Image filename (without dir, without extension)
